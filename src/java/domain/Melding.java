@@ -13,30 +13,46 @@ import java.util.Date;
 public class Melding {
     private int meldingid;
     private int accountid;
-    private int type;//0=situatie 1=evenement   
+    private int type;//0=situatie 1=evenement
+    private int soort;
     private int behandels; //0=nee 1= ja want er zijn geen booleans in sql maar een tiny int wel
     private Date datum;
     private String titel;
     private String beschrijving;
-    private int altitude;
-    private int longitude;
+    private String foto;
+    private double altitude;
+    private double longitude;
 
-    public Melding(int accountid, int type, int behandels, Date datum, String titel, String beschrijving, int altitude, int longitude) {
+    public Melding(int accountid, int type, int soort, int behandels, Date datum, String titel, String beschrijving, String foto, double altitude, double longitude) {
         this.accountid = accountid;
         this.type = type;
+        this.soort = soort;
         this.behandels = behandels;
         this.datum = datum;
         this.titel = titel;
         this.beschrijving = beschrijving;
+        this.foto = foto;
         this.altitude = altitude;
         this.longitude = longitude;
     }
-    
-
-    
     public Melding() {
-        
     }
+
+    public int getSoort() {
+        return soort;
+    }
+
+    public void setSoort(int soort) {
+        this.soort = soort;
+    }
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
 
     public void setAltitude(int altitude) {
         this.altitude = altitude;
@@ -74,11 +90,11 @@ public class Melding {
         this.behandels = behandels;
     }
 
-    public int getAltitude() {
+    public double getAltitude() {
         return altitude;
     }
 
-    public int getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 

@@ -8,10 +8,18 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="onzebuurt.css">
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+        <script src="jquery1-9.js"></script>
+        <script src="mapscript.js" ></script>
+        <div id="map" >
+
+
+        </div>
+        
     </body>
 </html>
