@@ -18,7 +18,9 @@ import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.print.attribute.standard.Media;
 import javax.sql.DataSource;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
@@ -38,8 +40,37 @@ public class meldingservices {
   @Produces(MediaType.APPLICATION_JSON)
   public List<Melding> getMeldingen(){
       List<Melding> l=new ArrayList<Melding>();
-      l.add(new Melding(12, 12, 12, 12, new Date(2010,12,12), "sdf", "dsdf", "sqd", 10, 10));
+     
    return l;
+  }
+  @Path("meldingopslaan")
+  @POST
+  @Consumes(MediaType.APPLICATION_JSON)
+  public void meldingOpslaan(Melding melding){
+      try (Connection conn = source.getConnection()) {
+            try (PreparedStatement stat = conn.prepareStatement(
+//INSERT INTO `onzebuurt`.`melding` (`accountid`, `datum`, `soort`, `gemeente`, `straat`, `titel`, `beschrijving`, `behandeld`, `altitude`, `longitude`) VALUES ('1', '2013-04-03 19:53:27', '1', '9300', 'noname', 'situatie', 'besch', '0', '50', '50');
+"INSERT INTO melding (accountid, datum, type, soort, gemeente, straat, titel, beschrijving, behandeld, latitude, longitude) "+
+  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)"))                      
+                    {
+                        stat.setInt(1, melding.getAccountid());
+                        stat.setString(2, melding.getDatum());
+                        stat.setInt(3, melding.getType());
+                        stat.setInt(4, melding.getSoort());
+                        stat.setInt(5, melding.getPostcode());
+                        stat.setString(6, melding.getStraat());
+                        stat.setString(7, melding.getTitel());
+                        stat.setString(8, melding.getBeschrijving());
+                        stat.setInt(9, melding.getBehandels());
+                        stat.setDouble(10, melding.getLatitude());
+                        stat.setDouble(11, melding.getLongitude());
+                        stat.executeUpdate();
+                        //System.out.println("send db ok");
+                        
+            }
+        } catch (SQLException ex) {
+            throw new WebApplicationException(ex);
+        }
   }
   @Path("soortMeldingen")
   @GET
@@ -61,6 +92,18 @@ public class meldingservices {
         }
   
   }
-  
+  private Melding tempMeling;
+  @Path("tmp")
+  @POST
+  @Consumes(MediaType.APPLICATION_JSON)
+  public void tmpConsume( Melding melding){
+      tempMeling=melding;
+  }
+  @Path("tmp2")
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  public Melding tmpProduces(){
+      return tempMeling;
+  }
     
 }

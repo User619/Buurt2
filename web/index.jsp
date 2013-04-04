@@ -15,11 +15,12 @@
     <body>
         <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
         <script src="jquery1-9.js"></script>
-        <script src="mapscript.js" ></script>
+        <script src="onzebuurtscripts.js" ></script>
         <div id="map" >
 
 
         </div>
-        
+        <input type="button" id="save" value="save">
+          <input type="button" id="load" value="load">
     </body>
 </html>

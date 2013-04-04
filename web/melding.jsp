@@ -13,7 +13,7 @@
     </head>
     <body>
        <script src="jquery1-9.js"></script>        
-        <script src="mapscript.js"></script>
+        <script src="onzebuurtscripts.js"></script>
        
         <div >  
             <label id="meldinglabel" >Melding Type:</label><br>
@@ -21,7 +21,7 @@
                 <option value="0" selected>Situatie</option>
                 <option value="1">Evenement</option>                
             </select><br>
-            <div id="datumDiv" onclick="javascript:alert(getStraat());">
+            <div id="datumDiv">
                 <label >Evenement datum</label><br>
                 <input type="datetime" id="datum" value="" > 
             </div>
@@ -33,13 +33,16 @@
             <div id="melding">
                 <div id="titelDiv">
                     <label >Titel</label><br>
-                    <input type="text" id="titel"
+                    <input type="text" id="titel">
                 </div>
                 <div id="beschrijvingDiv">
                     <label >Korte Beschrijving</label><br>
                     <textarea rows="4"  style="width: 320px;" id="beschrijving">
                     </textarea>
                 </div>
+            </div>
+            <div id="acties">
+                <input type="button" id="meldenBtn" value="Melden">
             </div>
             
 

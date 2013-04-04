@@ -6,6 +6,10 @@ package domain;
 
 import java.util.Date;
 
+
+
+
+
 /**
  *
  * @author Aime
@@ -16,25 +20,47 @@ public class Melding {
     private int type;//0=situatie 1=evenement
     private int soort;
     private int behandels; //0=nee 1= ja want er zijn geen booleans in sql maar een tiny int wel
-    private Date datum;
+    private String datum;
+    private String straat;    
+    private int postcode;
     private String titel;
     private String beschrijving;
     private String foto;
-    private double altitude;
+    private double latitude;
     private double longitude;
 
-    public Melding(int accountid, int type, int soort, int behandels, Date datum, String titel, String beschrijving, String foto, double altitude, double longitude) {
+    public Melding(int accountid, int type, int soort, int behandels, String datum, String straat, int postcode, String titel, String beschrijving, String foto, double latitude, double longitude) {
         this.accountid = accountid;
         this.type = type;
         this.soort = soort;
         this.behandels = behandels;
         this.datum = datum;
+        this.straat = straat;
+        this.postcode = postcode;
         this.titel = titel;
         this.beschrijving = beschrijving;
         this.foto = foto;
-        this.altitude = altitude;
+        this.latitude = latitude;
         this.longitude = longitude;
     }
+
+    public String getStraat() {
+        return straat;
+    }
+
+    public void setStraat(String straat) {
+        this.straat = straat;
+    }
+
+    public int getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(int postcode) {
+        this.postcode = postcode;
+    }
+
+   
     public Melding() {
     }
 
@@ -54,11 +80,11 @@ public class Melding {
     }
 
 
-    public void setAltitude(int altitude) {
-        this.altitude = altitude;
+    public void setLatitude(double altitude) {
+        this.latitude = altitude;
     }
 
-    public void setLongitude(int longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
@@ -70,7 +96,7 @@ public class Melding {
         this.accountid = accountid;
     }
 
-    public void setDatum(Date datum) {
+    public void setDatum(String datum) {
         this.datum = datum;
     }
 
@@ -90,8 +116,8 @@ public class Melding {
         this.behandels = behandels;
     }
 
-    public double getAltitude() {
-        return altitude;
+    public double getLatitude() {
+        return latitude;
     }
 
     public double getLongitude() {
@@ -106,7 +132,7 @@ public class Melding {
         return accountid;
     }
 
-    public Date getDatum() {
+    public String getDatum() {
         return datum;
     }
 
