@@ -20,7 +20,6 @@
 
 
         </div>
-        <input type="button" id="save" value="save">
-          <input type="button" id="load" value="load">
+      
     </body>
 </html>
