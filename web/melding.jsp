@@ -37,8 +37,7 @@
                 </div>
                 <div id="beschrijvingDiv">
                     <label >Korte Beschrijving</label><br>
-                    <textarea rows="4"  style="width: 320px;" id="beschrijving">
-                    </textarea>
+                    <textarea rows="4"  style="width: 320px;" id="beschrijving"></textarea>
                 </div>
             </div>
             <div id="acties">

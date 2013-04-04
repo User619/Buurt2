@@ -222,16 +222,17 @@ function()
         hr.setRequestHeader("Content-type","application/json");
          var datum=jaar+"-"+maand+"-"+dag+" "+uur+":"+min+":"+sec
          var titel= $("#titel").val()==""?"geen titel gegeven":$("#titel").val();
-         var beschrijving= $("#bechrijving").val()==""?"geen beschrijving gegeven":$("#beschrijving").val();
+         var beschrijving= $("#bechrijving").val()==""?"geen beschrijving gegeven":$("#beschrijving").val(); 
+         //beschrijving=beschrijving.value.replace(/^\s*|\s*$/g,'');
          var type=$('#type').find(":selected").val();
          var soort=$('#soort').find(":selected").val();
-         var jsonstring='{"latitude":'+tempMelding.latitude+', "longitude":'+tempMelding.longitude+', "accountid":1, "straat":"'+tempMelding.straat+'", "postcode":'+tempMelding.postcode+', "datum":"'+datum+'", "soort":'+soort+', "type":'+type+', "titel":"'+titel+', "beschrijving":"'+beschrijving+'"}';
+         var jsonstring='{"latitude":'+tempMelding.latitude+', "longitude":'+tempMelding.longitude+', "accountid":1, "straat":"'+tempMelding.straat+'", "postcode":'+tempMelding.postcode+', "datum":"'+datum+'", "soort":'+soort+', "type":'+type+', "titel":"'+titel+'", "beschrijving":"'+beschrijving+'"}';
          //hr.send();
          //var data= JSON.parse(jsonstring);
         //
-         //alert(jsonstring);
-         //var data= JSON.parse(jsonstring);
-         //alert(JSON.stringify(jsonstring));   
+        //alert(jsonstring);
+        // var data= JSON.parse(jsonstring);
+        // alert(JSON.stringify(jsonstring));   
           
          hr.send(jsonstring); 
       }            
