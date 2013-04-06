@@ -10,43 +10,78 @@ $(document).ready(
         
 function()
 {
+    
     function loadTmpMelding() {
         var hr = new XMLHttpRequest();
-        hr.open("GET", "res/meldingen/tmp2", true);
+         hr.open("GET","res/situatie/tmp",true);  //hr.open("GET", "res/situatie/tmp2", true);
         hr.onreadystatechange = function() {
-            if (hr.readyState == 4 && hr.status == 200) {
+            if (hr.readyState == 4 && hr.status == 200) { 
                 tempMelding = JSON.parse(hr.responseText);
-
+              
             }
         }
         hr.send(null);
     }  
-    function saveTmpMelding() {
+    function saveTmpMelding(marker , straat, gemeente, plaats, land) {
         var hr = new XMLHttpRequest();
-        hr.open("POST", "res/meldingen/tmp", true);
-        hr.setRequestHeader("Content-type", "application/json");
-        hr.send('{"latitude":' + marker.getPosition().lat() + ', "longitude":' + marker.getPosition().lng() + ', "straat":"' + straat + '", "postcode":"' + postcode + '"}');
-
-    }   
+        hr.open("POST","res/situatie/tmp",true);
+        hr.setRequestHeader("Content-type","application/json"); //tempMelding = JSON.parse('{"noorderbreedte":' + marker.getPosition().lat() + ', "oosterlengte2":' + marker.getPosition().lng() + ', "straat":"' + straat + '", "gemeente":"' + gemeente + '"}');
+         var jsonstring=
+                 '{'+                
+                 '"straat":"'+straat+'", '+
+                 '"gemeente":"'+gemeente+'", '+
+                 '"plaats":"'+plaats+'", '+
+                 '"land":"'+land+'", '+
+                 '"noorderbreedte":'+marker.getPosition().lat()+', '+
+                 '"oosterlengte":'+marker.getPosition().lng()+
+                '}';
+        hr.send(jsonstring);
+   } 
+   function laadMeldingen(){
+       laadSituaties();
+   }
+   function laadSituaties(){
+        alert("laad situatie controle 1");
+       var hr = new XMLHttpRequest();
+         hr.open("GET","res/situatie",true);  //hr.open("GET", "res/situatie/tmp2", true);
+        hr.onreadystatechange = function() {
+            if (hr.readyState == 4 && hr.status == 200) { 
+                situaties = JSON.parse(hr.responseText);
+                //point = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+                //alert (new google.maps.LatLng(50.1213, 40.45645));
+//                alert(userMarker.getPosition().lat())
+                for( var situatie in situaties){
+                    //alert(situaties[situatie].titel)
+                  placeMarker(new google.maps.LatLng(situaties[situatie].noorderbreedte, situaties[situatie].oosterlengte)); 
+                }
+                
+              
+            }
+        }
+        hr.send(null);
+   }
     var straat;
     var gemeente;
     var postcode;
+    var plaats;
+    var land;
     var datumString;
     var map;
     var mapOptions;
     var point;
-    var marker;
+    var markerTmp;
     var userMarker;
     var userMakerOpties;
     var infoWindow;
     var infoWindowOptions;
     var tempMelding;
     var maand;
-    var dag  ;
-    var jaar ;
-    var uur ;
-    var min ;
-    var sec ;
+    var dag;
+    var jaar;
+    var uur;
+    var min;
+    var sec;
+    var situaties;
     
     if (navigator.geolocation) {
         function hasPosition(position) {
@@ -59,7 +94,8 @@ function()
             map = new google.maps.Map(document.getElementById('map'), mapOptions);
             userMakerOpties = {
                 position: point,
-                icon:"green-dot.png"                
+                icon:"green-dot.png",
+                title:"leme see"
             };
             userMarker = new google.maps.Marker(userMakerOpties);
             userMarker.setMap(map);
@@ -74,32 +110,26 @@ function()
              google.maps.event.addListener(map, 'click', function(event) {
              placeMarker(event.latLng);
             });
+            laadMeldingen();
      }//einde hasposition
      navigator.geolocation.getCurrentPosition(hasPosition);
       
          function placeMarker(location) {
-            
-           marker = new google.maps.Marker({
+            var marker = new google.maps.Marker({
                 position: location,
-
             });
             marker.setMap(map);
-            getPlaceNames(marker.getPosition().lat(),marker.getPosition().lng());
+            getPlaceNames(marker.getPosition().lat(),marker.getPosition().lng(), marker);
             
-            
-            google.maps.event.addListener(marker, 'click', function(e) {
-                infoWindow.open(map, marker);
-            });
         }
         
-        function getPlaceNames(lat, lng){
-           
+        function getPlaceNames(lat, lng, marker){
              var hr= new XMLHttpRequest();
                     hr.open("GET",
             "http://maps.googleapis.com/maps/api/geocode/json?latlng="+ lat+","+lng+"&sensor=false"
             ,true);                    
                     hr.onreadystatechange = function() {
-                       
+                      
                            if (hr.readyState == 4 && hr.status == 200) {
                                var data = JSON.parse(hr.responseText); 
                                for( var result in data){
@@ -108,9 +138,23 @@ function()
                                            for(var someArray in data[result][addressComponets][addresArray]){
                                                //alert(JSON.stringify( data[result][addressComponets][addresArray][someArray]));
                                                for(var type in data[result][addressComponets][addresArray][someArray]){
-                                                    
+                                                   
                                                    for(var type2 in data[result][addressComponets][addresArray][someArray][type] ){
-                                                     
+                                                       if(data[result][addressComponets][addresArray][someArray][type][type2]=="country"){
+                                                           //land
+                                                           //alert(JSON.stringify( data[result][addressComponets][addresArray][someArray]));
+                                                           //JSON.stringify( data[result][addressComponets][addresArray][someArray].long_name)
+                                                           //alert(land);
+                                                          land=data[result][addressComponets][addresArray][someArray].long_name;
+                                                          
+                                                       }
+                                                      if(data[result][addressComponets][addresArray][someArray][type][type2]=="administrative_area_level_2"){
+                                                           //plaats
+                                                           //alert(JSON.stringify( data[result][addressComponets][addresArray][someArray]));
+                                                           //JSON.stringify( data[result][addressComponets][addresArray][someArray].long_name)
+                                                           //alert(plaats);
+                                                          plaats=data[result][addressComponets][addresArray][someArray].long_name;
+                                                       }
                                                       if(data[result][addressComponets][addresArray][someArray][type]=="postal_code"){
                                                            //postcoe
                                                            //alert(JSON.stringify( data[result][addressComponets][addresArray][someArray]));
@@ -139,28 +183,36 @@ function()
                                             }//
                                   
                                   
-                               }
-                    infoWindowOptions = {
+                               }//einde result loop
+                      
+                    var infoWindowOptions = {
                         content: ' ' + straat + '<br>\n\
                              ' + gemeente + '<br>\n\
                              ' + postcode + '<br>\
-                            <a href="melding.jsp">Melding plaatsen </a><br>'
-
+                            <a href="post.jsp">Melding plaatsen </a><br>'
                     };
-                    saveTmpMelding();//tijdelijke info over straat, gemeente...longitute opslaan on server backend
-                       infoWindow = new google.maps.InfoWindow(infoWindowOptions);
-                       
-                      
-                    infoWindow.open(map, marker);
+                    infoWindow.close();
+                    infoWindow = new google.maps.InfoWindow(infoWindowOptions);
                     
-                           }//eind if (hr.readyState == 4 && hr.status == 200)
-                          
-                       }  //einde hr.onreadystate                         
-                       hr.send(null);
-                       
-            
-        }
-        
+                    infoWindow.open(map, marker);
+                    google.maps.event.addListener(marker, 'click', function(e) {
+                        infoWindow.close();
+                        infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+                        infoWindow.open(map, marker);
+
+                        saveTmpMelding(marker, straat, gemeente, plaats, land);//tijdelijke info over straat, gemeente...longitute opslaan on server backend 
+                        loadTmpMelding();
+                    });
+                    saveTmpMelding(marker, straat,gemeente, plaats, land);//tijdelijke info over straat, gemeente...longitute opslaan on server backend 
+                    loadTmpMelding();
+                }//eind if (hr.readyState == 4 && hr.status == 200)
+            }  //einde hr.onreadystate                         
+            hr.send(null);
+        }//einde get place names
+    
+    
+    
+    
       //----------------------meldingen script------------------------------------    
 //----------------------situaties halen -------------------------
          var hr= new XMLHttpRequest();
@@ -173,7 +225,7 @@ function()
                     
                     for(var soortmelding in data){
                         $("#soort").append("<option value='"+data[soortmelding].id +"'>"+data[soortmelding].naam  + "</option>" )
-                       //alert(data[soortmelding].naam );
+                      //alert(data[soortmelding].naam );
                     }
                        }
          }      
@@ -212,30 +264,47 @@ function()
                  );
 //------------------------------------------melden knop-----------------------------                     
     $("#meldenBtn").click(function(){
-            meldingOpslaan();
+            postOpslaan();
         
     });
-    function meldingOpslaan(){
+    function postOpslaan(){
         loadTmpMelding();
+              alert("controlle 1 pass");
         var hr= new XMLHttpRequest();
-        hr.open("POST","res/meldingen/meldingopslaan",true);  
+        hr.open("POST","res/situatie",true);  
         hr.setRequestHeader("Content-type","application/json");
          var datum=jaar+"-"+maand+"-"+dag+" "+uur+":"+min+":"+sec
          var titel= $("#titel").val()==""?"geen titel gegeven":$("#titel").val();
-         var beschrijving= $("#bechrijving").val()==""?"geen beschrijving gegeven":$("#beschrijving").val(); 
+         var inhoud= $("#inhoud").val()==""?"geen beschrijving gegeven":$("#inhoud").val(); 
          //beschrijving=beschrijving.value.replace(/^\s*|\s*$/g,'');
          var type=$('#type').find(":selected").val();
-         var soort=$('#soort').find(":selected").val();
-         var jsonstring='{"latitude":'+tempMelding.latitude+', "longitude":'+tempMelding.longitude+', "accountid":1, "straat":"'+tempMelding.straat+'", "postcode":'+tempMelding.postcode+', "datum":"'+datum+'", "soort":'+soort+', "type":'+type+', "titel":"'+titel+'", "beschrijving":"'+beschrijving+'"}';
+         var soort=$('#soort').find(":selected").text();
+         var jsonstring=
+                 '{'+
+                 '"datum":"'+datum+'", '+                 
+                 //'"type":'+type+', '+ //er is geen type in de klas situatie, we weten de type gewoon door de naam van de klas
+                 '"soort":"'+soort+'", '+
+                 '"titel":"'+titel+'", '+ 
+                 '"inhoud":"'+inhoud+'", '+
+                 //hier komt de afbelding code
+                 '"straat":"'+tempMelding.straat+'", '+
+                 '"gemeente":"'+tempMelding.gemeente+'", '+
+                 '"plaats":"'+tempMelding.plaats+'", '+
+                 '"land":"'+tempMelding.land+'", '+
+                 '"noorderbreedte":'+tempMelding.noorderbreedte+', '+
+                 '"oosterlengte":'+tempMelding.oosterlengte+', '+
+                 '"gebruiker":{"gebruikerID":1}'+
+                '}';
          //hr.send();
          //var data= JSON.parse(jsonstring);
         //
-        //alert(jsonstring);
-        // var data= JSON.parse(jsonstring);
-        // alert(JSON.stringify(jsonstring));   
-          
+//        alert(jsonstring);
+//         var data= JSON.parse(jsonstring);
+//         alert("controlle 2 pass");
+//         alert(JSON.stringify(jsonstring));   
+//          
          hr.send(jsonstring); 
-      }            
+      }           
     }//end if(navigator.geolocation
 
  

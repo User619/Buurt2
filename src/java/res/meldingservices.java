@@ -4,19 +4,16 @@
  */
 package res;
 
-import com.sun.xml.rpc.processor.modeler.j2ee.xml.resAuthType;
 import domain.Melding;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
-import javax.print.attribute.standard.Media;
 import javax.sql.DataSource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;

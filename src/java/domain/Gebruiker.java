@@ -7,8 +7,8 @@ public class Gebruiker {
  
 private int gebruikerID;
 private String gebruikersnaam;
-private int noorderbreedte;
-private int oosterlengte;
+private double noorderbreedte;
+private double oosterlengte;
 private int zoom;
 private ArrayList<Post> posts;
 private ArrayList<Post> recentePosts;
@@ -49,19 +49,19 @@ public Gebruiker(int gebruikerID, String gebruikersnaam,int facebookKey, int twi
         this.gebruikersnaam = gebruikersnaam;
     }
 
-    public int getNoorderbreedte() {
+    public double getNoorderbreedte() {
         return noorderbreedte;
     }
 
-    public void setNoorderbreedte(int noorderbreedte) {
+    public void setNoorderbreedte(double noorderbreedte) {
         this.noorderbreedte = noorderbreedte;
     }
 
-    public int getOosterlengte() {
+    public double getOosterlengte() {
         return oosterlengte;
     }
 
-    public void setOosterlengte(int oosterlengte) {
+    public void setOosterlengte(double oosterlengte) {
         this.oosterlengte = oosterlengte;
     }
 

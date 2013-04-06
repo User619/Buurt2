@@ -2,7 +2,6 @@ package domain;
 
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Post {
 
@@ -10,9 +9,9 @@ private int postID;
 private String titel;
 private String inhoud;
 private Image afbeelding;
-private Date datum;
-private int noorderbreedte;
-private int oosterlengte;
+private String datum;
+private double noorderbreedte;
+private double oosterlengte;
 private String straat;
 private String gemeente;
 private String plaats;
@@ -21,8 +20,21 @@ private Gebruiker gebruiker;
 private ArrayList<Gebruiker> likes;
 private ArrayList<Reactie> reacties;
 
-    public Post(int PostID, String titel, String inhoud, Image afbeelding, Date datum, int noorderbreedte, int oosterlengte, String straat, String gemeente, String plaats, String land, Gebruiker gebruiker, ArrayList likes, ArrayList reacties) {
-        this.postID = postID;
+    public Post(int PostID, 
+            String titel, 
+            String inhoud, 
+            Image afbeelding, 
+            String datum, 
+            double noorderbreedte, 
+            double oosterlengte, 
+            String straat, 
+            String gemeente, 
+            String plaats, 
+            String land, 
+            Gebruiker gebruiker, 
+            ArrayList<Gebruiker> likes, 
+            ArrayList<Reactie> reacties) {
+        this.postID = PostID;
         this.titel = titel;
         this.inhoud = inhoud;
         this.afbeelding = afbeelding;
@@ -37,8 +49,20 @@ private ArrayList<Reactie> reacties;
         this.reacties = reacties;
     }
 
-    public Post(int PostID, String titel, String inhoud, Date datum, int noorderbreedte, int oosterlengte, String straat, String gemeente, String plaats, String land, Gebruiker gebruiker, ArrayList likes, ArrayList reacties) {
-        this.postID = postID;
+    public Post(int PostID, 
+            String titel, 
+            String inhoud, 
+            String datum, 
+            double noorderbreedte, 
+            double oosterlengte, 
+            String straat, 
+            String gemeente, 
+            String plaats, 
+            String land, 
+            Gebruiker gebruiker, 
+            ArrayList<Gebruiker> likes, 
+            ArrayList<Reactie> reacties) {
+        this.postID = PostID;
         this.titel = titel;
         this.inhoud = inhoud;
         this.noorderbreedte = noorderbreedte;
@@ -51,4 +75,120 @@ private ArrayList<Reactie> reacties;
         this.likes = likes;
         this.reacties = reacties;
     }
+
+    public Post() {
+    }
+
+    public int getPostID() {
+        return postID;
+    }
+
+    public void setPostID(int postID) {
+        this.postID = postID;
+    }
+
+    public String getTitel() {
+        return titel;
+    }
+
+    public void setTitel(String titel) {
+        this.titel = titel;
+    }
+
+    public String getInhoud() {
+        return inhoud;
+    }
+
+    public void setInhoud(String inhoud) {
+        this.inhoud = inhoud;
+    }
+
+    public Image getAfbeelding() {
+        return afbeelding;
+    }
+
+    public void setAfbeelding(Image afbeelding) {
+        this.afbeelding = afbeelding;
+    }
+
+    public String getDatum() {
+        return datum;
+    }
+
+    public void setDatum(String datum) {
+        this.datum = datum;
+    }
+
+    public double getNoorderbreedte() {
+        return noorderbreedte;
+    }
+
+    public void setNoorderbreedte(double noorderbreedte) {
+        this.noorderbreedte = noorderbreedte;
+    }
+
+    public double getOosterlengte() {
+        return oosterlengte;
+    }
+
+    public void setOosterlengte(double oosterlengte) {
+        this.oosterlengte = oosterlengte;
+    }
+
+    public String getStraat() {
+        return straat;
+    }
+
+    public void setStraat(String straat) {
+        this.straat = straat;
+    }
+
+    public String getGemeente() {
+        return gemeente;
+    }
+
+    public void setGemeente(String gemeente) {
+        this.gemeente = gemeente;
+    }
+
+    public String getPlaats() {
+        return plaats;
+    }
+
+    public void setPlaats(String plaats) {
+        this.plaats = plaats;
+    }
+
+    public String getLand() {
+        return land;
+    }
+
+    public void setLand(String land) {
+        this.land = land;
+    }
+
+    public Gebruiker getGebruiker() {
+        return gebruiker;
+    }
+
+    public void setGebruiker(Gebruiker gebruiker) {
+        this.gebruiker = gebruiker;
+    }
+
+    public ArrayList<Gebruiker> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(ArrayList<Gebruiker> likes) {
+        this.likes = likes;
+    }
+
+    public ArrayList<Reactie> getReacties() {
+        return reacties;
+    }
+
+    public void setReacties(ArrayList<Reactie> reacties) {
+        this.reacties = reacties;
+    }
+    
 }

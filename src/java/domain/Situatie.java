@@ -1,38 +1,37 @@
 package domain;
 
-import domain.Post;
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Situatie extends Post {
 
-    private String type;
+    private String soort;
 
     public Situatie(
             int PostID, 
             String titel, 
             String inhoud, 
             Image afbeelding, 
-            Date datum, 
-            int noorderbreedte, 
-            int oosterlengte,
+            String datum, 
+            double noorderbreedte, 
+            double oosterlengte,
             String straat,
             String gemeente, 
             String plaats, 
             String land, 
             Gebruiker gebruiker, 
-            ArrayList likes, 
-            ArrayList reacties, 
+              ArrayList<Gebruiker> likes, 
+            ArrayList<Reactie> reacties, 
+            
             String type) {
         super(PostID, titel, inhoud, afbeelding, datum, noorderbreedte, oosterlengte, straat, gemeente, plaats, land, gebruiker, likes, reacties);
-        this.type = type;
+        this.soort = type;
     }
     public Situatie(
             int PostID, 
             String titel, 
             String inhoud, 
-            Date datum, 
+            String datum, 
             int noorderbreedte, 
             int oosterlengte, 
             String straat, 
@@ -40,10 +39,21 @@ public class Situatie extends Post {
             String plaats, 
             String land, 
             Gebruiker gebruiker, 
-            ArrayList likes, 
-            ArrayList reacties, 
+             ArrayList<Gebruiker> likes, 
+            ArrayList<Reactie> reacties,
             String type) {
         super(PostID, titel, inhoud, datum, noorderbreedte, oosterlengte, straat, gemeente, plaats, land, gebruiker, likes, reacties);
-        this.type = type;
+        this.soort = type;
+    }
+
+    public Situatie() {
+    }
+
+    public String getSoort() {
+        return soort;
+    }
+
+    public void setSoort(String soort) {
+        this.soort = soort;
     }
 }
