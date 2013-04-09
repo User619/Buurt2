@@ -24,8 +24,7 @@ public class ApplicationConfig extends Application {
      */
     private Set<Class<?>> getRestResourceClasses() {
         Set<Class<?>> resources = new java.util.HashSet<Class<?>>();
-        resources.add(res.SituatieServices.class);
-        resources.add(res.meldingservices.class);
+        resources.add(res.SituatieServices.class);        
         try {
             Class<?> jacksonProvider = Class.forName("org.codehaus.jackson.jaxrs.JacksonJsonProvider");
             resources.add(jacksonProvider);

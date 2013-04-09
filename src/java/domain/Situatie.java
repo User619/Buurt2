@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Situatie extends Post {
 
-    private String soort;
+    private int soort;
 
     public Situatie(
             int PostID, 
@@ -23,7 +23,7 @@ public class Situatie extends Post {
               ArrayList<Gebruiker> likes, 
             ArrayList<Reactie> reacties, 
             
-            String type) {
+            int type) {
         super(PostID, titel, inhoud, afbeelding, datum, noorderbreedte, oosterlengte, straat, gemeente, plaats, land, gebruiker, likes, reacties);
         this.soort = type;
     }
@@ -41,7 +41,7 @@ public class Situatie extends Post {
             Gebruiker gebruiker, 
              ArrayList<Gebruiker> likes, 
             ArrayList<Reactie> reacties,
-            String type) {
+            int type) {
         super(PostID, titel, inhoud, datum, noorderbreedte, oosterlengte, straat, gemeente, plaats, land, gebruiker, likes, reacties);
         this.soort = type;
     }
@@ -49,11 +49,11 @@ public class Situatie extends Post {
     public Situatie() {
     }
 
-    public String getSoort() {
+    public int getSoort() {
         return soort;
     }
 
-    public void setSoort(String soort) {
+    public void setSoort(int soort) {
         this.soort = soort;
     }
 }

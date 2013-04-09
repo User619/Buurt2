@@ -18,8 +18,9 @@
         <script src="onzebuurtscripts.js" ></script>
         <div id="map" >
 
-
         </div>
-      
+        <div id="footer">
+            
+        </div>
     </body>
 </html>

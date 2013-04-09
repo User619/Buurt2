@@ -1,21 +1,16 @@
-<%-- 
-    Document   : melding
-    Created on : Apr 3, 2013, 12:43:28 PM
-    Author     : Aime
---%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Een melding geven</title>
+        <link rel="stylesheet" type="text/css" href="onzebuurt.css">
     </head>
     <body>
-       <script src="jquery1-9.js"></script>        
-        <script src="onzebuurtscripts.js"></script>
-       
+        <script src="jquery1-9.js"></script>
+        <script src="postscript.js"></script>
         <div >  
+
             <label id="meldinglabel" >Melding Type:</label><br>
             <select id="type" name="type">
                 <option value="0" selected>Situatie</option>
@@ -45,7 +40,7 @@
                     <input type="button" id="meldenBtn" value="Melden">
                 </a>
             </div>
-            
+
 
         </div>
     </body>

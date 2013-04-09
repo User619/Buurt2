@@ -10,18 +10,6 @@ $(document).ready(
         
 function()
 {
-    
-    function loadTmpMelding() {
-        var hr = new XMLHttpRequest();
-         hr.open("GET","res/situatie/tmp",true);  //hr.open("GET", "res/situatie/tmp2", true);
-        hr.onreadystatechange = function() {
-            if (hr.readyState == 4 && hr.status == 200) { 
-                tempMelding = JSON.parse(hr.responseText);
-              
-            }
-        }
-        hr.send(null);
-    }  
     function saveTmpMelding(marker , straat, gemeente, plaats, land) {
         var hr = new XMLHttpRequest();
         hr.open("POST","res/situatie/tmp",true);
@@ -35,30 +23,49 @@ function()
                  '"noorderbreedte":'+marker.getPosition().lat()+', '+
                  '"oosterlengte":'+marker.getPosition().lng()+
                 '}';
+        
         hr.send(jsonstring);
    } 
    function laadMeldingen(){
        laadSituaties();
    }
    function laadSituaties(){
-        alert("laad situatie controle 1");
-       var hr = new XMLHttpRequest();
-         hr.open("GET","res/situatie",true);  //hr.open("GET", "res/situatie/tmp2", true);
+        //alert("laad situatie controle 1");
+        var hr = new XMLHttpRequest();
+        hr.open("GET", "res/situatie", true);  //hr.open("GET", "res/situatie/tmp2", true);
         hr.onreadystatechange = function() {
-            if (hr.readyState == 4 && hr.status == 200) { 
+            alert(hr.responseText);
+            if (hr.readyState == 4 && hr.status == 200) {
                 situaties = JSON.parse(hr.responseText);
-                //point = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-                //alert (new google.maps.LatLng(50.1213, 40.45645));
-//                alert(userMarker.getPosition().lat())
-                for( var situatie in situaties){
-                    //alert(situaties[situatie].titel)
-                  placeMarker(new google.maps.LatLng(situaties[situatie].noorderbreedte, situaties[situatie].oosterlengte)); 
+                for (var situatie in situaties) {
+                    //alert(situaties[situatie].titel)                    
+                    maakInfoSchermEnMarker(situaties[situatie]);
                 }
-                
-              
+
+
             }
         }
         hr.send(null);
+   }
+   function maakInfoSchermEnMarker(situatie){
+    
+         var marker= new google.maps.Marker({
+                position: new google.maps.LatLng(situatie.noorderbreedte, situatie.oosterlengte),               
+            });
+          marker.setMap(map);
+          var infoWindowOptions = {
+                        content: ' <strong>' + situatie.titel + '</strong><br>\n\
+                                 <a href="meldinginfo.jsp">Meer over</a><br>\
+                                 <a href="reactie.jsp">Reageer</a><br>'
+                    };
+         google.maps.event.addListener(marker, 'click', function(e) {
+                        infoWindow.close();
+                        infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+                        infoWindow.open(map, marker);
+
+                    });//alert(situaties.noorderbreedte);
+                   
+       
    }
     var straat;
     var gemeente;
@@ -74,13 +81,8 @@ function()
     var userMakerOpties;
     var infoWindow;
     var infoWindowOptions;
-    var tempMelding;
-    var maand;
-    var dag;
-    var jaar;
-    var uur;
-    var min;
-    var sec;
+    
+    
     var situaties;
     
     if (navigator.geolocation) {
@@ -95,7 +97,7 @@ function()
             userMakerOpties = {
                 position: point,
                 icon:"green-dot.png",
-                title:"leme see"
+               
             };
             userMarker = new google.maps.Marker(userMakerOpties);
             userMarker.setMap(map);
@@ -108,22 +110,21 @@ function()
                 infoWindow.open(map, userMarker);
             });
              google.maps.event.addListener(map, 'click', function(event) {
-             placeMarker(event.latLng);
+             placeMarker(event.latLng, true);
             });
             laadMeldingen();
      }//einde hasposition
      navigator.geolocation.getCurrentPosition(hasPosition);
       
-         function placeMarker(location) {
+        function placeMarker(location, isNewMarker) {
             var marker = new google.maps.Marker({
                 position: location,
             });
             marker.setMap(map);
-            getPlaceNames(marker.getPosition().lat(),marker.getPosition().lng(), marker);
-            
+            getPlaceNames(marker.getPosition().lat(), marker.getPosition().lng(), marker, isNewMarker);
         }
         
-        function getPlaceNames(lat, lng, marker){
+        function getPlaceNames(lat, lng, marker,isNewMarker){
              var hr= new XMLHttpRequest();
                     hr.open("GET",
             "http://maps.googleapis.com/maps/api/geocode/json?latlng="+ lat+","+lng+"&sensor=false"
@@ -191,120 +192,27 @@ function()
                              ' + postcode + '<br>\
                             <a href="post.jsp">Melding plaatsen </a><br>'
                     };
-                    infoWindow.close();
-                    infoWindow = new google.maps.InfoWindow(infoWindowOptions);
                     
-                    infoWindow.open(map, marker);
+                    if (isNewMarker) {
+                        infoWindow.close();
+                        infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+                        infoWindow.open(map, marker);
+                        saveTmpMelding(marker, straat, gemeente, plaats, land);//tijdelijke info over straat, gemeente...longitute opslaan on server backend 
+                        //loadTmpMelding();
+                    }
                     google.maps.event.addListener(marker, 'click', function(e) {
                         infoWindow.close();
                         infoWindow = new google.maps.InfoWindow(infoWindowOptions);
                         infoWindow.open(map, marker);
 
                         saveTmpMelding(marker, straat, gemeente, plaats, land);//tijdelijke info over straat, gemeente...longitute opslaan on server backend 
-                        loadTmpMelding();
+                        //loadTmpMelding();
                     });
-                    saveTmpMelding(marker, straat,gemeente, plaats, land);//tijdelijke info over straat, gemeente...longitute opslaan on server backend 
-                    loadTmpMelding();
+                   
                 }//eind if (hr.readyState == 4 && hr.status == 200)
             }  //einde hr.onreadystate                         
             hr.send(null);
         }//einde get place names
-    
-    
-    
-    
-      //----------------------meldingen script------------------------------------    
-//----------------------situaties halen -------------------------
-         var hr= new XMLHttpRequest();
-         hr.open("GET","res/meldingen/soortMeldingen",true);                    
-         hr.onreadystatechange = function() { 
-               
-            if (hr.readyState == 4 && hr.status == 200) {
-                //alert(hr.responseText);
-                var data = JSON.parse(hr.responseText); 
-                    
-                    for(var soortmelding in data){
-                        $("#soort").append("<option value='"+data[soortmelding].id +"'>"+data[soortmelding].naam  + "</option>" )
-                      //alert(data[soortmelding].naam );
-                    }
-                       }
-         }      
-                       hr.send(null);
-                  
-                $("#datumDiv").hide();
-                var datum = new Date();
-                maand = datum.getUTCMonth() + 1;
-                dag = datum.getDate();
-                jaar = datum.getFullYear();
-                uur = datum.getHours();
-                min = datum.getMinutes();
-                sec = datum.getSeconds();
-                $("#type").change
-                (
-                    function (){
-                      if($(this).val()== 1){                    
-                        $("#situatieSoortDiv").slideUp(300,
-                            function(){
-                                $("#datumDiv").slideDown(300,
-                                    function() {
-                                        
-                                        var datumString = dag + "/" + maand + "/" + jaar + " " + uur + ":" + min + ":" + sec
-                        $("#datum").attr("value", datumString);
-                    }
-                                );                            
-                            }
-                       
-                         );
-                      }else{
-                         $("#datumDiv").slideUp(300, function(){                             
-                             $("#situatieSoortDiv").slideDown(300)
-                         });
-                      }               
-                     }
-                 );
-//------------------------------------------melden knop-----------------------------                     
-    $("#meldenBtn").click(function(){
-            postOpslaan();
-        
-    });
-    function postOpslaan(){
-        loadTmpMelding();
-              alert("controlle 1 pass");
-        var hr= new XMLHttpRequest();
-        hr.open("POST","res/situatie",true);  
-        hr.setRequestHeader("Content-type","application/json");
-         var datum=jaar+"-"+maand+"-"+dag+" "+uur+":"+min+":"+sec
-         var titel= $("#titel").val()==""?"geen titel gegeven":$("#titel").val();
-         var inhoud= $("#inhoud").val()==""?"geen beschrijving gegeven":$("#inhoud").val(); 
-         //beschrijving=beschrijving.value.replace(/^\s*|\s*$/g,'');
-         var type=$('#type').find(":selected").val();
-         var soort=$('#soort').find(":selected").text();
-         var jsonstring=
-                 '{'+
-                 '"datum":"'+datum+'", '+                 
-                 //'"type":'+type+', '+ //er is geen type in de klas situatie, we weten de type gewoon door de naam van de klas
-                 '"soort":"'+soort+'", '+
-                 '"titel":"'+titel+'", '+ 
-                 '"inhoud":"'+inhoud+'", '+
-                 //hier komt de afbelding code
-                 '"straat":"'+tempMelding.straat+'", '+
-                 '"gemeente":"'+tempMelding.gemeente+'", '+
-                 '"plaats":"'+tempMelding.plaats+'", '+
-                 '"land":"'+tempMelding.land+'", '+
-                 '"noorderbreedte":'+tempMelding.noorderbreedte+', '+
-                 '"oosterlengte":'+tempMelding.oosterlengte+', '+
-                 '"gebruiker":{"gebruikerID":1}'+
-                '}';
-         //hr.send();
-         //var data= JSON.parse(jsonstring);
-        //
-//        alert(jsonstring);
-//         var data= JSON.parse(jsonstring);
-//         alert("controlle 2 pass");
-//         alert(JSON.stringify(jsonstring));   
-//          
-         hr.send(jsonstring); 
-      }           
     }//end if(navigator.geolocation
 
  

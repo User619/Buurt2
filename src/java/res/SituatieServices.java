@@ -4,7 +4,7 @@
  */
 package res;
 
-import domain.Account;
+
 import domain.Gebruiker;
 import domain.Situatie;
 import java.sql.Connection;
@@ -52,7 +52,7 @@ public class SituatieServices {
                 
                 stat.setString(1, situatie.getDatum());
                 stat.setInt(2, 0);//type 0=situatie 1=evemenement
-                stat.setString(3, situatie.getSoort());
+                stat.setInt(3, situatie.getSoort());
                 stat.setString(4, situatie.getTitel());
                 stat.setString(5, situatie.getInhoud());
                 
@@ -82,7 +82,7 @@ public class SituatieServices {
                         Situatie situatie = new Situatie();
                         situatie.setPostID(rs.getInt("PostID"));
                         situatie.setDatum(rs.getString("Datum"));
-                        situatie.setSoort(rs.getString("Soort"));
+                        situatie.setSoort(rs.getInt("Soort"));
                         situatie.setTitel(rs.getString("Titel"));
                         situatie.setInhoud(rs.getString("Inhoud"));
                         //situatie.setAfbeelding(rs.getString("Afbeelding"));
@@ -119,6 +119,26 @@ public class SituatieServices {
   public void tmpPost( Situatie situatie){
       tmpSituatie=situatie;
       //System.out.println(situatie.getStraat());
+  }
+  @Path("soortMeldingen")
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  public String getSoortMeldingen(){
+  try (Connection conn = source.getConnection()) {
+            try (PreparedStatement stat = conn.prepareStatement("SELECT * FROM soortmelding")) {
+                try (ResultSet rs = stat.executeQuery()) {
+                   String soortmeldingen="[";
+                    while (rs.next()) {
+                       soortmeldingen+= "{\"id\":\""+rs.getString("soortmeldingid")+"\", \"naam\":\""+rs.getString("naam")+"\"},\n";
+                      
+                    }                   
+                    return soortmeldingen=soortmeldingen.substring(0, soortmeldingen.length()-2)+"]";//om de latste comma(,) te verwijderen tijden het maken van json array
+                }
+            }
+        } catch (SQLException ex) {
+            throw new WebApplicationException(ex);
+        }
+  
   }
   
 }
