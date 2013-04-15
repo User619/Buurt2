@@ -10,6 +10,21 @@ $(document).ready(
         
 function()
 {
+    function test(){
+        var hr = new XMLHttpRequest();
+        var stingParam=point.lat()+':'+point.lng(); 
+        hr.open("GET","res/situatie/10km/"+stingParam,true);
+         hr.onreadystatechange = function() {//alert(hr.responseText);
+            //alert(hr.responseText); 
+            if (hr.readyState == 4 && hr.status == 200) {
+                var s = JSON.parse(hr.responseText);
+               
+
+
+            }
+        }
+        hr.send(null); ;
+    }
     function saveTmpMelding(marker , straat, gemeente, plaats, land) {
         var hr = new XMLHttpRequest();
         hr.open("POST","res/situatie/tmp",true);
@@ -28,13 +43,14 @@ function()
    } 
    function laadMeldingen(){
        laadSituaties();
+       laadEvenementen();
    }
    function laadSituaties(){
         //alert("laad situatie controle 1");
         var hr = new XMLHttpRequest();
         hr.open("GET", "res/situatie", true);  //hr.open("GET", "res/situatie/tmp2", true);
         hr.onreadystatechange = function() {
-            alert(hr.responseText);
+            //alert(hr.responseText);
             if (hr.readyState == 4 && hr.status == 200) {
                 situaties = JSON.parse(hr.responseText);
                 for (var situatie in situaties) {
@@ -50,13 +66,57 @@ function()
    function maakInfoSchermEnMarker(situatie){
     
          var marker= new google.maps.Marker({
-                position: new google.maps.LatLng(situatie.noorderbreedte, situatie.oosterlengte),               
+                position: new google.maps.LatLng(situatie.noorderbreedte, situatie.oosterlengte), 
+                icon:"images/warning.png",
             });
           marker.setMap(map);
+          
           var infoWindowOptions = {
                         content: ' <strong>' + situatie.titel + '</strong><br>\n\
                                  <a href="meldinginfo.jsp">Meer over</a><br>\
                                  <a href="reactie.jsp">Reageer</a><br>'
+                       
+                    };
+         google.maps.event.addListener(marker, 'click', function(e) {
+                        infoWindow.close();
+                        infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+                        infoWindow.open(map, marker);
+
+                    });//alert(situaties.noorderbreedte);
+                   
+       
+   }
+    function laadEvenementen(){
+        //alert("laad situatie controle 1");
+        var hr = new XMLHttpRequest();
+        hr.open("GET", "res/evenement", true);  //hr.open("GET", "res/situatie/tmp2", true);
+        hr.onreadystatechange = function() {
+            //alert(hr.responseText);
+            if (hr.readyState == 4 && hr.status == 200) {
+                evenementen = JSON.parse(hr.responseText);
+                for (var evenement in evenementen) {
+                    //alert(situaties[situatie].titel)                    
+                    maakInfoSchermEnMarkerEvenement(evenementen[evenement]);
+                }
+
+
+            }
+        }
+        hr.send(null);
+   }
+   function maakInfoSchermEnMarkerEvenement(evenement){
+    
+         var marker= new google.maps.Marker({
+                position: new google.maps.LatLng(evenement.noorderbreedte, evenement.oosterlengte), 
+                icon:"images/event.png",
+            });
+          marker.setMap(map);
+          
+          var infoWindowOptions = {
+                        content: ' <strong>' + evenement.titel + '</strong><br>\n\
+                                 <a href="meldinginfo.jsp">Meer over</a><br>\
+                                 <a href="reactie.jsp">Reageer</a><br>'
+                       
                     };
          google.maps.event.addListener(marker, 'click', function(e) {
                         infoWindow.close();
@@ -84,6 +144,7 @@ function()
     
     
     var situaties;
+    var evenementen;
     
     if (navigator.geolocation) {
         function hasPosition(position) {
@@ -96,7 +157,7 @@ function()
             map = new google.maps.Map(document.getElementById('map'), mapOptions);
             userMakerOpties = {
                 position: point,
-                icon:"green-dot.png",
+                icon:"images/green-dot.png",
                
             };
             userMarker = new google.maps.Marker(userMakerOpties);
@@ -113,6 +174,7 @@ function()
              placeMarker(event.latLng, true);
             });
             laadMeldingen();
+            test();
      }//einde hasposition
      navigator.geolocation.getCurrentPosition(hasPosition);
       
@@ -197,14 +259,19 @@ function()
                         infoWindow.close();
                         infoWindow = new google.maps.InfoWindow(infoWindowOptions);
                         infoWindow.open(map, marker);
-                        saveTmpMelding(marker, straat, gemeente, plaats, land);//tijdelijke info over straat, gemeente...longitute opslaan on server backend 
+                        saveTmpMelding(marker, straat, gemeente, plaats, land);
+                        saveTmpMelding(marker, straat, gemeente, plaats, land);
+                        saveTmpMelding(marker, straat, gemeente, plaats, land);
+                        //tijdelijke info over straat, gemeente...longitute opslaan on server backend 
                         //loadTmpMelding();
                     }
                     google.maps.event.addListener(marker, 'click', function(e) {
                         infoWindow.close();
                         infoWindow = new google.maps.InfoWindow(infoWindowOptions);
                         infoWindow.open(map, marker);
-
+                        saveTmpMelding(marker, straat, gemeente, plaats, land);
+                        saveTmpMelding(marker, straat, gemeente, plaats, land);
+                        saveTmpMelding(marker, straat, gemeente, plaats, land);
                         saveTmpMelding(marker, straat, gemeente, plaats, land);//tijdelijke info over straat, gemeente...longitute opslaan on server backend 
                         //loadTmpMelding();
                     });

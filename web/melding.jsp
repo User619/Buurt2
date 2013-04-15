@@ -12,8 +12,8 @@
         <title>Een melding geven</title>
     </head>
     <body>
-       <script src="jquery1-9.js"></script>        
-        <script src="onzebuurtscripts.js"></script>
+       <script src="javascript/jquery1-9.js"></script>        
+        <script src="javascript/onzebuurtscripts.js"></script>
        
         <div >  
             <label id="meldinglabel" >Melding Type:</label><br>

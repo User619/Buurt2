@@ -10,12 +10,12 @@
     <head>
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="onzebuurt.css">
+        <link rel="stylesheet" type="text/css" href="styles/onzebuurt.css">
     </head>
     <body>
         <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
-        <script src="jquery1-9.js"></script>
-        <script src="onzebuurtscripts.js" ></script>
+        <script src="javascript/jquery1-9.js"></script>
+        <script src="javascript/onzebuurtscripts.js" ></script>
         <div id="map" >
 
         </div>

@@ -1,9 +1,7 @@
 package domain;
 
-import domain.Post;
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Evenement extends Post {
 
@@ -54,4 +52,24 @@ public class Evenement extends Post {
         this.beginDatum = beginDatum;
         this.eindDatum = eindDatum;
     }
+
+    public Evenement() {
+    }
+
+    public String getBeginDatum() {
+        return beginDatum;
+    }
+
+    public void setBeginDatum(String beginDatum) {
+        this.beginDatum = beginDatum;
+    }
+
+    public String getEindDatum() {
+        return eindDatum;
+    }
+
+    public void setEindDatum(String eindDatum) {
+        this.eindDatum = eindDatum;
+    }
+    
 }

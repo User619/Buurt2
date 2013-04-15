@@ -20,9 +20,11 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import org.jboss.logging.Param;
 
 /**
  *
@@ -70,7 +72,7 @@ public class SituatieServices {
         } catch (SQLException ex) {
             throw new WebApplicationException(ex);
         }
-    }
+    }    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public  List<Situatie> situaties(){
@@ -139,6 +141,63 @@ public class SituatieServices {
             throw new WebApplicationException(ex);
         }
   
+  }
+  private double minLat,minLng,maxLat,maxLng;
+  private int rad=0;
+  private int R=6371;
+  @Path("10km/{lat}:{lng}")
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<Situatie> bereken10kmRondOmGebruiker(@PathParam("lat")double lat,@PathParam("lng")double lng){
+//////      // first-cut bounding box (in degrees)
+//  maxLat = lat + Math.toDegrees(rad/R);
+//  minLat = lat - Math.toDegrees(rad/R);
+//////  compensate for degrees longitude getting smaller with increasing latitude
+//  maxLng = lng + Math.toDegrees(rad/R/Math.cos(Math.toDegrees(lat)));
+//minLng = lng - Math.toDegrees(rad/R/Math.cos(Math.toDegrees(lat)));
+List<Situatie> results = new ArrayList<Situatie>();
+Situatie s=new Situatie();
+s.setNoorderbreedte(lng);
+s.setOosterlengte(lat);
+results.add(s);
+return results;
+//Select ID, Postcode, Lat, Lon
+//      From MyTable
+//      Where Lat Between :minLat And :maxLat
+//        And Lon Between :minLon And :maxLon
+// try (Connection conn = source.getConnection()) {
+//            try (PreparedStatement stat = conn.prepareStatement("select * from post where "
+//                    + "Noorderbreedte between "+ minLat+" and "+maxLat+" and "
+//                    + "Oosterlengte between "+minLng+" and "+maxLng)) {
+//                try (ResultSet rs = stat.executeQuery()) {
+//                    List<Situatie> results = new ArrayList<Situatie>();
+//                    while (rs.next()) {
+//                        Situatie situatie = new Situatie();
+//                        situatie.setPostID(rs.getInt("PostID"));
+//                        situatie.setDatum(rs.getString("Datum"));
+//                        situatie.setSoort(rs.getInt("Soort"));
+//                        situatie.setTitel(rs.getString("Titel"));
+//                        situatie.setInhoud(rs.getString("Inhoud"));
+//                        //situatie.setAfbeelding(rs.getString("Afbeelding"));
+//                        situatie.setStraat(rs.getString("Straat"));
+//                        situatie.setGemeente(rs.getString("Gemeente"));
+//                        situatie.setPlaats(rs.getString("Plaats"));
+//                        situatie.setLand(rs.getString("Land"));
+//                        situatie.setOosterlengte(rs.getDouble("Oosterlengte"));
+//                        situatie.setNoorderbreedte(rs.getDouble("Noorderbreedte"));
+//                        Gebruiker gebruiker= new Gebruiker();
+//                        gebruiker.setGebruikerID(rs.getInt("GebruikerID"));
+//                        situatie.setGebruiker(gebruiker);
+//                        
+//                        results.add(situatie);
+//                    }
+//                    return results;
+//                }
+//            }
+//        } catch (SQLException ex) {
+//            throw new WebApplicationException(ex);
+//        }
+//
   }
   
 }
