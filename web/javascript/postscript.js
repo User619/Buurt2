@@ -94,7 +94,7 @@ if(type==0 ){
                         '"land":"' + tempMelding.land + '", ' +
                         '"noorderbreedte":' + tempMelding.noorderbreedte + ', ' +
                         '"oosterlengte":' + tempMelding.oosterlengte + ', ' +
-                        '"gebruiker":{"gebruikerID":1}' +
+                        '"gebruiker":{"gebruikerID":'+tempMelding.gebruiker.gebruikerID+'}' +
                         '}';
     
         hr.send(jsonstring);
@@ -123,16 +123,17 @@ if(type==1){
                         //hier komt de afbelding code
                         '"straat":"' + tempMelding.straat + '", ' +
                         '"gemeente":"' + tempMelding.gemeente + '", ' +
-                        '"plaats":"' + tempMelding.plaats + '", ' +
-                        '"land":"' + tempMelding.land + '", ' +
+                        '"plaats":"' +tempMelding.plaats +'", ' +
+                        '"land":"' + tempMelding.land +'", ' +
                         '"noorderbreedte":' + tempMelding.noorderbreedte + ', ' +
                         '"oosterlengte":' + tempMelding.oosterlengte + ', ' +
                         '"beginDatum":"' + bdatum + '", ' +
                         '"eindDatum":"' + edatum + '", ' +
-                        '"gebruiker":{"gebruikerID":1}' +
+                        '"gebruiker":{"gebruikerID":'+tempMelding.gebruiker.gebruikerID+'}' +
                         
                         '}';
                  hr.send(jsonstring);
+                // alert(jsonstring);
                  alert("Melding Opgeslaan"); 
                
 }  

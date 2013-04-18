@@ -10,15 +10,22 @@
     <head>
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="styles/onzebuurt.css">
-    </head>
-    <body>
-        <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
-        <script src="javascript/jquery1-9.js"></script>
+        <link rel="stylesheet" href="styles/jquerymobile.min.css" />
+       <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+        <script src="javascript/jquery-1.9.1.min.js"></script>
         <script src="javascript/onzebuurtscripts.js" ></script>
-        <div id="map" >
+        <script src="javascript/jquery.mobile-1.3.1.min.js"></script>
+    </head>
+    <body class="ui-body-a">
+        
+        <div data-role="content">
+            <div data-role="page" id="map">
+
+            </div>
 
         </div>
+        
+        
         <div id="footer">
             
         </div>

@@ -35,6 +35,7 @@ function()
                  '"gemeente":"'+gemeente+'", '+
                  '"plaats":"'+plaats+'", '+
                  '"land":"'+land+'", '+
+                 '"gebruiker":{ "gebruikerID":'+gebruiker.gebruikerID+'}, ' +
                  '"noorderbreedte":'+marker.getPosition().lat()+', '+
                  '"oosterlengte":'+marker.getPosition().lng()+
                 '}';
@@ -42,8 +43,29 @@ function()
         hr.send(jsonstring);
    } 
    function laadMeldingen(){
+       laadGebruiker();
        laadSituaties();
        laadEvenementen();
+   }
+   function laadGebruiker(){
+       
+        var hr = new XMLHttpRequest();
+        hr.open("GET", "res/gebruikers/tmpGebruiker", true); 
+       
+        hr.onreadystatechange = function() {
+            //alert(hr.responseText); 
+            if (hr.readyState == 4 && hr.status == 200) {
+                gebruiker=JSON.parse(hr.responseText);
+                if(gebruiker.gebruikerID==0){
+                     window.location = "../onzebuurt/login.jsp";
+                }else{
+                    alert("Welkom "+gebruiker.gebruikersnaam);
+                }
+                   
+            }
+        }
+       
+        hr.send(null);
    }
    function laadSituaties(){
         //alert("laad situatie controle 1");
@@ -127,6 +149,8 @@ function()
                    
        
    }
+   var gebruiker;
+   var facebooid;
     var straat;
     var gemeente;
     var postcode;

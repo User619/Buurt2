@@ -12,18 +12,18 @@ private double oosterlengte;
 private int zoom;
 private ArrayList<Post> posts;
 private ArrayList<Post> recentePosts;
-private int facebookID;
-private int twitterID;
+private String facebookID;
+private String twitterID;
 private String moderator;
 
-public Gebruiker(int gebruikerID, String gebruikersnaam,int facebookKey, int twitterKey, String moderator)
+public Gebruiker(int gebruikerID, String gebruikersnaam,String facebookID, String twitterKey, String moderator)
 {
         this.gebruikerID = gebruikerID;
         this.gebruikersnaam = gebruikersnaam;
         this.noorderbreedte = 0;
         this.oosterlengte = 0;
         this.zoom = 0;
-        this.facebookID = facebookKey;
+        this.facebookID = facebookID;
         this.twitterID = twitterKey;
         this.moderator = moderator;
         posts = new ArrayList<Post>();
@@ -89,19 +89,19 @@ public Gebruiker(int gebruikerID, String gebruikersnaam,int facebookKey, int twi
         this.recentePosts = recentePosts;
     }
 
-    public int getFacebookID() {
+    public String getFacebookID() {
         return facebookID;
     }
 
-    public void setFacebookID(int facebookID) {
+    public void setFacebookID(String facebookID) {
         this.facebookID = facebookID;
     }
 
-    public int getTwitterID() {
+    public String getTwitterID() {
         return twitterID;
     }
 
-    public void setTwitterID(int twitterID) {
+    public void setTwitterID(String twitterID) {
         this.twitterID = twitterID;
     }
 

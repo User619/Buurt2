@@ -5,8 +5,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Een melding geven</title>
         <link rel="stylesheet" type="text/css" href="styles/onzebuurt.css">
+<!--<link rel="stylesheet" href="styles/jquerymobile.min.css" />
+<link rel="stylesheet" href="styles/jquerystructuremin131.css" />-->
         <link href="styles/glDatePicker.darkneon.css" rel="stylesheet" type="text/css">
-        <script src="javascript/jquery1-9.js"></script>
+        <script src="javascript/jquery-1.9.1.min.js"></script>
+<!--        <script src="javascript/jquery.mobile-1.3.1.min.js"></script>-->
         <script src="javascript/glDatePicker.js"></script>
         <script src="javascript/postscript.js"></script>
     </head>
