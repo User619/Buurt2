@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+
+        <link rel="stylesheet" href="styles/jquery.mobile.min.css" />   
+        <link rel="stylesheet" href="styles/jquery.mobile.structure-1.3.1.min.css" /> 
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script> 
+        <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script> 
+        <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>       
+        <script src="javascript/onzebuurtscripts.js" ></script>
+        <script src="javascript/facebookscript.js"></script>
+        <!--       
+                    checkCookie("user");
+                </script>  
+                <script src="javascript/loginscript.js">
+                </script> -->
+        <!--        <script src="javascript/postscript.js" ></script>-->
+
+        <!--        <script src="javascript/jquery.mobile-1.3.1.min.js"></script>-->
+    </head>
+    <body >
+        <!--        
+                <div data-role="content">
+                    <div data-role="page" id="map">
+        
+                    </div>
+        
+                </div>
+                <div id="footer">
+                    
+                </div>-->
+        <!-- Home -->
+        <div data-role="page" id="page1" data-title="Onze Buurt - Home">
+
+            <div data-theme="b" data-role="header">
+
+                <h3>
+                    Onze Buurt
+                </h3>   
+                <a data-role="button"  href="#instellingen"  data-rel="dialog" data-transition="pop" >Instellingen<img src="images/settings.png" class="ui-li-icon"></a>
+
+            </div>
+            <!-- google map div-->
+            <div class="map" id="map"> 
+                <div   data-theme="b" id="situatie" data-role="popup">
+                    <div class="postOmpaak">  
+
+                        <div data-role="fieldcontain">
+                            <label for="meldingType" class="select">Melding Type:</label>
+                            <select data-native-menu="true" name="meldingType" id="meldingType">
+                                <option value="0" selected>Situatie</option>
+                                <option value="1">Evenement</option>                   
+                            </select>
+                        </div>
+
+                        <div id="datumDiv">
+                            <div id="bdatum" data-role="fieldcontain">
+                                <label for="beginDatum">
+                                    Van:
+                                </label>
+                                <input type="text" id="beginDatum">
+                            </div>
+                            <div id="edatum" data-role="fieldcontain">
+                                <label for="eindDatum">
+                                    Tot:
+                                </label>  
+                                <input type="text" id="eindDatum"> 
+                            </div>
+
+                        </div>
+                        <div id="situatieSoortDiv">
+                            <div data-role="fieldcontain">
+
+                                <label for="situatieSoort" class="select">Soort Situatie:</label>
+                                <select  name="situatieSoort" id="situatieSoort" data-native-menu="false">
+                                </select>
+
+                            </div>
+                        </div>
+                        <div id="melding">
+                            <form action="">
+                                <div id="titel" data-role="fieldcontain">
+                                    <label for="titel">
+                                        Titel:
+                                    </label>
+                                    <input name="" id="titel" placeholder="" value="" type="text">
+                                </div>
+                                <div data-role="fieldcontain">
+                                    <label for="inhoud">
+                                        Beschrijving:
+                                    </label>
+                                    <textarea name="" id="inhoud" placeholder=""></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="melden" class="divKnop" >
+                            <a data-role="button" href="index.html">
+                                Melden
+                            </a>
+                        </div>
+                    </div> <!--einde opmaak div-->
+                </div> <!--einde situatie div-->
+            </div><!--einde google map div-->
+
+
+        </div> <!--einde page1--> 
+
+
+        <!-- Instellingen -->
+        <div data-role="page" id="instellingen">
+            <ul data-role="listview" data-theme="b">
+                <li><a  href="#help"  data-prefetch data-rel="dialog" data-transition="pop" >Help!</a></li>
+                <li><a  href="#meldingFilter"  data-prefetch data-rel="dialog" data-transition="pop" >Meldingen Filteren</a></li>
+                <li><a  href="#gegevens"  data-prefetch data-rel="dialog" data-transition="pop" >Mijn Gegevens</a></li>
+            </ul>
+        </div>
+        <!--einde Instellingen-->
+        <!-- gebruiker gegevens -->
+        <div data-role="page" id="gegevens">
+            <div data-role="content">
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <div style="width: 100px; height: 100px; position: relative; background-color: #fbfbfb; border: 1px solid #b8b8b8;">
+
+                        </div>
+                    </div>
+                    <div class="ui-block-b" id="gegevensContentDivs">
+
+                    </div>
+                    <div class="ui-block-a">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--einde gebruiker gegevens--> 
+
+        <!-- meldingen -->
+        <div data-role="page" id="meldingFilter">
+
+            <div data-role="content">
+                <div id="checkboxes1" data-role="fieldcontain">
+                    <fieldset data-role="controlgroup" data-type="vertical">
+                        <legend>
+                            Schakel(in of uit)
+                        </legend>
+                        <input id="checkbox1" name="ssituatiesKeuze" type="checkbox">
+                        <label for="checkbox1">
+                            Situaties
+                        </label>
+                        <input id="checkbox3" name="sevenementenKeuze" type="checkbox">
+                        <label for="checkbox3">
+                            Evenementen
+                        </label>
+                    </fieldset>
+                </div>
+                <div id="checkboxes3" data-role="fieldcontain">
+                    <fieldset data-role="controlgroup" data-type="vertical">
+                        <legend>
+                            Goedgekeurd:
+                        </legend>
+                        <input id="checkbox4" name="gsituatiesKeuze" type="checkbox">
+                        <label for="checkbox4">
+                            Situaties
+                        </label>
+                        <input id="checkbox5" name="gevenementenKeuze" type="checkbox">
+                        <label for="checkbox5">
+                            Evenementen
+                        </label>
+                    </fieldset>
+                </div> 
+                <div id="aantalkmrondmij" data-role="fieldcontain">
+                    <fieldset data-role="controlgroup" data-type="vertical">
+                        <legend>
+                            Aantal km rond mij:
+                        </legend>
+                        <input id="radio6" name="" value="20" type="radio">
+                        <label for="radio6">
+                            20 km
+                        </label>
+                        <input id="radio7" name="" value="10" type="radio">
+                        <label for="radio7">
+                            10 km
+                        </label>
+                        <input id="radio8" name="" value="5" type="radio">
+                        <label for="radio8">
+                            5 km
+                        </label>
+                    </fieldset>
+                </div>
+                <input id="bevestigKnop" value="Bevestig" type="submit">
+            </div>
+        </div>
+        <!--einde meldingen--> 
+        <!--Login-->
+        <div data-role="page" id="login">
+            <div data-theme="a" data-role="header">
+                <h2>
+                    Onze Buurt
+                </h2>
+            </div>
+            <div data-role="content" style="text-align: center;" >
+                <div  >
+                    <h3>
+                        Onze Buurt de app waarme iedereen <br> in je omgeving kan bijdragen om jouw straat,<br> 
+                        buurt, of wijk te verbeteren.
+                    </h3>
+                    <p>Login of registreer met facebook:</p>
+                </div> 
+                <div id="facebook" style="width: 100px; height: 100px;  position: relative; top: 50%; left: 50%; margin-left: -16px; margin-top: -18px">
+                    <img style="width: 100px; height: 100px;"  src="images/fb2.png" alt="facebook image" >
+                </div>
+                <div id="fb-root"></div>
+
+            </div>
+        </div>
+
+
+    </body>
+</html>

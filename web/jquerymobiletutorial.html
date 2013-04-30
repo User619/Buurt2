@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>jQuery UI Dialog - Modal form</title>
+       
+         <link rel="stylesheet" href="styles/jquery.mobile.min.css" /> 
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile.structure-1.3.1.min.css" /> 
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script> 
+        <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js">
+            $("#add").click(function(){
+                $("#list").append("<p> item</p>");
+                
+            });
+        </script> 
+
+    </head>
+    <body>
+        <div data-role="page" id="page1">
+        <a href="#popupPadded" data-rel="popup" data-role="button">Popup with padding</a>
+<div id="popupPadded" data-role="popup">
+	<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+        <a href="#" id="add" data-role="button"> add</a>
+	<!-- Home -->
+        <div data-role="fieldcontain" id="list">
+	<label for="select-choice-1" class="select">Choose shipping method:</label>
+	 
+</div>
+    
+        <div data-role="fieldcontain">
+            <label for="textinput1">
+                Title
+            </label>
+            <input name="" id="textinput1" placeholder="" value="" type="text">
+        </div>
+        <div data-role="fieldcontain">
+            <label for="textinput2">
+                Title
+            </label>
+            <input name="" id="textinput2" placeholder="" value="" type="text">
+        </div>
+    </div>
+        </div>
+
+    </body>
+</html>

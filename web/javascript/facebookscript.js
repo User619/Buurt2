@@ -8,7 +8,7 @@ $(document).ready(
                 // init the FB JS SDK
                 FB.init({
                     appId: '236439906495493', // App ID from the app dashboard
-                    channelUrl: '//localhost:8080/onzebuurt/login.jsp', // Channel file for x-domain comms
+                    channelUrl: '//localhost:8080/onzebuurt/login.html', // Channel file for x-domain comms
                     status: true, // Check Facebook Login status
                     xfbml: true                                  // Look for social plugins on the page
                 });
@@ -16,43 +16,37 @@ $(document).ready(
                    
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
-                    setCookie("user", "true", 15)
+                    setCookie("user", "true", 15);
 
                     FB.api('/me', function(response) {
-                        //alert(JSON.stringify(response));
+                     //alert(JSON.stringify(response));
                         var hr = new XMLHttpRequest();
-                        hr.open("POST", "res/gebruikers/gebruiker", true);  //hr.open("GET", "res/situatie/tmp2", true);
+                        hr.open("POST", "res/gebruikers/gebruiker", true);  
                         hr.setRequestHeader("Content-type", "application/json");
                         var jsonstring = '{"facebookID":' + response.id + '}';
                         var gebruiker;
                         hr.onreadystatechange = function() {
-                            //alert(hr.responseText);
-                            if (hr.readyState == 4 && hr.status == 200) {
-                                gebruiker = JSON.parse(hr.responseText);
-                               
+                          
+                            if (hr.readyState == 4 && hr.status == 200) { // alert("dsfgsg"+hr.responseText);
+                                gebruiker = JSON.parse(hr.responseText);                               
                                 if (gebruiker.gebruikerID == 0) { 
                                      var hr2 = new XMLHttpRequest();
-                                     hr2.open("POST", "res/gebruikers/tmp", true);  
+                                     hr2.open("POST", "res/gebruikers/newgebruiker", true);  
                                         hr2.setRequestHeader("Content-type", "application/json");
-                                        jsonstring = '{"facebookID":"' + response.id + '", "gebruikersnaam":"'+response.name+'"}';
-                                     
+                                        jsonstring = '{"facebookID":"' + response.id + '", "gebruikersnaam":"'+response.name+'", "naam":"'+response.last_name+'", "voornaam":"'+response.first_name+'"}';                                       
                                         hr2.send(jsonstring);
-                                            alert(JSON.stringify(JSON.parse(jsonstring)));
-                                        window.location = "../onzebuurt/index.jsp";
+                                           // alert(JSON.stringify(JSON.parse(jsonstring) )+ "ok");
+                                       $.mobile.changePage("#page1", "slideup");
                                 }else{
-                                   window.location = "../onzebuurt/index.jsp";
+                                  $.mobile.changePage("#page1", "slideup");
                                 }
                                 
                             }
                         }
-
                         hr.send(jsonstring);
                         
 
                     });
-                        this.loginOk=function (){
-                            return true;
-                        }
                         
                     } else if (response.status === 'not_authorized') { 
                         login();
@@ -64,12 +58,11 @@ $(document).ready(
                 function login() {
                     FB.login(function(response) {
                         if (response.authResponse) {
-                          window.location = "../onzebuurt/index.jsp";
+                          $.mobile.changePage("#page1", "slideup");
                         
-                        } else {
-                         this.loginOk=function (){
-                            return false;
-                        } // cancelled
+                        } else { // cancelled                       
+                           $.mobile.changePage("#page1", "slideup");
+                        
                         }
                     });
                 } 
@@ -122,14 +115,14 @@ $(document).ready(
         var user = getCookie(c_name);
         if (user != null && user != "")
         {
-            alert(user);
+            //alert(user);
              var fb = new window.fbAsyncInit();
         fb.status();
           
         }
         else
         {
-           
+//            alert("facebook");
         }
     }
  checkCookie("user");
