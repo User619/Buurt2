@@ -7,12 +7,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
 
         <link rel="stylesheet" href="styles/jquery.mobile.min.css" />   
-        <link rel="stylesheet" href="styles/jquery.mobile.structure-1.3.1.min.css" /> 
-        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script> 
-        <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script> 
-        <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>       
+
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile.structure-1.3.1.min.css" /> 
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>      
+        <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
         <script src="javascript/onzebuurtscripts.js" ></script>
-        <script src="javascript/facebookscript.js"></script>
         <!--       
                     checkCookie("user");
                 </script>  
@@ -22,27 +22,18 @@
 
         <!--        <script src="javascript/jquery.mobile-1.3.1.min.js"></script>-->
     </head>
-    <body >
-        <!--        
-                <div data-role="content">
-                    <div data-role="page" id="map">
-        
-                    </div>
-        
-                </div>
-                <div id="footer">
-                    
-                </div>-->
+    <body data-theme="b">
+        <div id="fb-root"></div>
+
         <!-- Home -->
         <div data-role="page" id="page1" data-title="Onze Buurt - Home">
 
             <div data-theme="b" data-role="header">
-
                 <h3>
                     Onze Buurt
                 </h3>   
                 <a data-role="button"  href="#instellingen"  data-rel="dialog" data-transition="pop" >Instellingen<img src="images/settings.png" class="ui-li-icon"></a>
-
+                <a data-role="button"  href="# "  data-rel="dialog" data-transition="pop" >Afmelden<img src="images/settings.png" class="ui-li-icon"></a>
             </div>
             <!-- google map div-->
             <div class="map" id="map"> 
@@ -87,13 +78,13 @@
                                     <label for="titel">
                                         Titel:
                                     </label>
-                                    <input name="" id="titel" placeholder="" value="" type="text">
+                                    <input name="" id="titelInput" placeholder="" value="" type="text">
                                 </div>
                                 <div data-role="fieldcontain">
                                     <label for="inhoud">
                                         Beschrijving:
                                     </label>
-                                    <textarea name="" id="inhoud" placeholder=""></textarea>
+                                    <textarea name="" id="inhoudInput" placeholder=""></textarea>
                                 </div>
                             </form>
                         </div>
@@ -112,33 +103,100 @@
 
         <!-- Instellingen -->
         <div data-role="page" id="instellingen">
-            <ul data-role="listview" data-theme="b">
+            <ul data-role="listview" data-theme="c">
                 <li><a  href="#help"  data-prefetch data-rel="dialog" data-transition="pop" >Help!</a></li>
                 <li><a  href="#meldingFilter"  data-prefetch data-rel="dialog" data-transition="pop" >Meldingen Filteren</a></li>
                 <li><a  href="#gegevens"  data-prefetch data-rel="dialog" data-transition="pop" >Mijn Gegevens</a></li>
             </ul>
         </div>
         <!--einde Instellingen-->
+        <div data-role="page" id="meldinginfo">
+             
+        </div>
         <!-- gebruiker gegevens -->
         <div data-role="page" id="gegevens">
-            <div data-role="content">
-                <div class="ui-grid-a">
-                    <div class="ui-block-a">
-                        <div style="width: 100px; height: 100px; position: relative; background-color: #fbfbfb; border: 1px solid #b8b8b8;">
-
-                        </div>
-                    </div>
-                    <div class="ui-block-b" id="gegevensContentDivs">
+            <div data-role="content" data-theme="c">
+                <div style="float: left;">
+                    <div id ="gebruikerFoto" style="width: 100px; height: 100px; position: relative; background-color: #fbfbfb; border: 1px solid #b8b8b8;">
 
                     </div>
-                    <div class="ui-block-a">
-                        
-                    </div>
+                </div>
+                <div  id="gegevensContentDivs">
+                </div>
+                <div>
+                    <ul data-role="listview" data-divider-theme="b" data-inset="true">
+                        <li data-role="list-divider" role="heading">
+                            Activiteiten
+                        </li>
+                        <li data-theme="c">
+                            <a href="#mijnmeldingen" data-transition="slide">
+                                Mijn Meldingen
+                            </a>
+                        </li>
+                        <li data-theme="c">
+                            <a href="#page1" data-transition="slide">
+                                Reacties
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
         <!--einde gebruiker gegevens--> 
+        <!--gegevens wijzigen-->
+        <div data-role="page" id="gevevenswijzigen">
+            <div data-role="content">
+                <form action="">
+                     <div data-role="fieldcontain">
+                        <label for="wgebruikdernaam">
+                            Gebruikernaam:
+                        </label>
+                        <input name="" id="wgebruikdernaam" placeholder="" value="" type="text">
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="wnaam">
+                            Naam:
+                        </label>
+                        <input name="" id="wnaam" placeholder="" value="" type="text">
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="wvoornaam">
+                            Voornaam:
+                        </label>
+                        <input name="" id="wvoornaam" placeholder="" value="" type="text">
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="woudwachtwoord">
+                            Oud Wachtwoord:
+                        </label>
+                        <input name="" id="woudwachtwoord" placeholder="" value="" type="password">
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="wnewwachtwoord1">
+                            Nieuw Wachtwoord:
+                        </label>
+                        <input name="" id="wnewwachtwoord1" placeholder="" value="" type="password">
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="wnewwachtwoord2">
+                            Wachtwoord opnieuw:
+                        </label>
+                        <input name="" id="wnewwachtwoord2" placeholder="" value="" type="password">
+                    </div>
+                     <input id="wopslaanKnop" value="Opslaan" type="submit">
+                </form>
+            </div>
+        </div>
+        <!--einde gegevens wijzigen-->
+        <!--mij meldingen-->
+        <div data-role="page" id="mijnmeldingen">
+            <div data-role="content">
+                <ul data-role="listview" data-divider-theme="a" data-inset="true" id="mijnmeldingenLijst">
 
+                </ul>
+            </div>
+        </div>
+        <!--einde mijn medlingen-->
         <!-- meldingen -->
         <div data-role="page" id="meldingFilter">
 
@@ -148,12 +206,12 @@
                         <legend>
                             Schakel(in of uit)
                         </legend>
-                        <input id="checkbox1" name="ssituatiesKeuze" type="checkbox">
-                        <label for="checkbox1">
+                        <input id="ssituatiesKeuze" name="ssituatiesKeuze" type="checkbox">
+                        <label for="ssituatiesKeuze">
                             Situaties
                         </label>
-                        <input id="checkbox3" name="sevenementenKeuze" type="checkbox">
-                        <label for="checkbox3">
+                        <input id="sevenementenKeuze" name="sevenementenKeuze" type="checkbox">
+                        <label for="sevenementenKeuze">
                             Evenementen
                         </label>
                     </fieldset>
@@ -163,12 +221,12 @@
                         <legend>
                             Goedgekeurd:
                         </legend>
-                        <input id="checkbox4" name="gsituatiesKeuze" type="checkbox">
-                        <label for="checkbox4">
+                        <input id="gsituatiesKeuze" name="gsituatiesKeuze" type="checkbox">
+                        <label for="gsituatiesKeuze">
                             Situaties
                         </label>
-                        <input id="checkbox5" name="gevenementenKeuze" type="checkbox">
-                        <label for="checkbox5">
+                        <input id="gevenementenKeuze" name="gevenementenKeuze" type="checkbox">
+                        <label for="gevenementenKeuze">
                             Evenementen
                         </label>
                     </fieldset>
@@ -178,16 +236,16 @@
                         <legend>
                             Aantal km rond mij:
                         </legend>
-                        <input id="radio6" name="" value="20" type="radio">
-                        <label for="radio6">
+                        <input id="km20" name="" value="20" type="radio">
+                        <label for="km20">
                             20 km
                         </label>
-                        <input id="radio7" name="" value="10" type="radio">
-                        <label for="radio7">
+                        <input id="km10" name="" value="10" type="radio">
+                        <label for="km10">
                             10 km
                         </label>
-                        <input id="radio8" name="" value="5" type="radio">
-                        <label for="radio8">
+                        <input id="km5" name="" value="5" type="radio">
+                        <label for="km5">
                             5 km
                         </label>
                     </fieldset>
@@ -209,16 +267,91 @@
                         Onze Buurt de app waarme iedereen <br> in je omgeving kan bijdragen om jouw straat,<br> 
                         buurt, of wijk te verbeteren.
                     </h3>
-                    <p>Login of registreer met facebook:</p>
+
+                    <p>Aanmelden:</p>
+
                 </div> 
-                <div id="facebook" style="width: 100px; height: 100px;  position: relative; top: 50%; left: 50%; margin-left: -16px; margin-top: -18px">
-                    <img style="width: 100px; height: 100px;"  src="images/fb2.png" alt="facebook image" >
+                <div class="loginKnop" id="loginKnop" >
+                    Mijn Buurt
+                </div >
+                <!--                <div id="facebook" style="width: 100px; height: 100px;  position: relative; top: 50%; left: 50%; margin-left: -16px; margin-top: -18px">
+                                    <img style="width: 100px; height: 100px;"  src="images/fb2.png" alt="facebook image" >
+                                </div>-->
+                <div id="facebook" class="loginKnop" > 
+                    Met facebook
                 </div>
-                <div id="fb-root"></div>
 
             </div>
+            <div id="fb-root"></div>
         </div>
+        <!--einde login-->
+        <!--registreer pagina-->
+        <div data-role="page" id="registreer">
+            <div data-role="content">
+                <form action="">
+                    <div data-role="fieldcontain">
+                        <label for="tgebruikersnaam">
+                            Aanmeld naam:
+                        </label>
+                        <input name="" id="tgebruikersnaam" placeholder="" value="" type="text">
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="tnaam">
+                            Naam:
+                        </label>
+                        <input name="" id="tnaam" placeholder="" value="" type="text">
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="tvoornaam">
+                            Voornaam:
+                        </label>
+                        <input name="" id="tvoornaam" placeholder="" value="" type="text">
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="temail">
+                            E-mail:
+                        </label>
+                        <input name="" id="temail" placeholder="" value="" type="text">
+                    </div>
 
-
+                    <div data-role="fieldcontain">
+                        <label for="twachtwoord1">
+                            Wachtwoord
+                        </label>
+                        <input name="" id="twachtwoord1" placeholder="" value="" type="text">
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="twachtwoord2">
+                            Wachtwoord opnieuw invoeren
+                        </label>
+                        <input name="" id="twachtwoord2" placeholder="" value="" type="text">
+                    </div>
+                    <input id="registreerKnop" value="Registreer" type="submit">
+                </form>
+            </div>
+        </div>
+        <!--eind registreer pagina-->
+        <!--aanmeld pagina-->
+        <div data-role="page" id="aanmelden">
+            <div data-role="content">
+                <form action="">
+                    <div data-role="fieldcontain">
+                        <label for="lgebruikersnaam">
+                            Gebruikersnaam:
+                        </label>
+                        <input name="" id="lgebruikersnaam" placeholder="" value="" type="text">
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="lwachtwoord">
+                            Wachtwoord:
+                        </label>
+                        <input name="" id="lwachtwoord" placeholder="" value="" type="text">
+                    </div>
+                    <input id="aanmeldenKnop" value="Meld aan" type="submit">
+                    <a data-role="button"  href="#registreer"  data-rel="dialog" data-transition="pop" > Registreer </a>
+                </form>
+            </div>
+        </div>
+        <!--eind aanmeld pagina-->
     </body>
 </html>

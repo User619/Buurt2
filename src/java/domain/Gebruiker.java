@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Gebruiker {
 
@@ -15,8 +16,9 @@ public class Gebruiker {
     private double noorderbreedte;
     private double oosterlengte;
     private int beheerder;
-    private ArrayList<Post> mijnPosts;
-    private ArrayList<Post> recentePosts;
+    private List<Post> mijnPosts;
+    private List<Post> recentePosts;
+    private Filters filters;
 
     public Gebruiker(int gebruikerID, String gebruikersnaam, String naam, String voornaam, String email, String wachtwoord, String facebookID, String twitterID, double noorderbreedte, double oosterlengte, int beheerder, ArrayList<Post> mijnPosts, ArrayList<Post> recentePosts) {
         this.gebruikerID = gebruikerID;
@@ -37,6 +39,14 @@ public class Gebruiker {
     
 
     public Gebruiker() {
+    }
+
+    public Filters getFilters() {
+        return filters;
+    }
+
+    public void setFilters(Filters filters) {
+        this.filters = filters;
     }
 
     public int getBeheerder() {
@@ -116,19 +126,19 @@ public class Gebruiker {
 
     
 
-    public ArrayList<Post> getMijnPosts() {
+    public List<Post> getMijnPosts() {
         return mijnPosts;
     }
 
-    public void setMijnPosts(ArrayList<Post> mijnPosts) {
+    public void setMijnPosts(List<Post> mijnPosts) {
         this.mijnPosts = mijnPosts;
     }
 
-    public ArrayList<Post> getRecentePosts() {
+    public List<Post> getRecentePosts() {
         return recentePosts;
     }
 
-    public void setRecentePosts(ArrayList<Post> recentePosts) {
+    public void setRecentePosts(List<Post> recentePosts) {
         this.recentePosts = recentePosts;
     }
 

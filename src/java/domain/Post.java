@@ -5,34 +5,60 @@ import java.util.ArrayList;
 
 public class Post {
 
-private int postID;
-private String titel;
-private String inhoud;
-private Image afbeelding;
-private String datum;
-private double noorderbreedte;
-private double oosterlengte;
-private String straat;
-private String gemeente;
-private String plaats;
-private String land;
-private Gebruiker gebruiker;
-private ArrayList<Gebruiker> likes;
-private ArrayList<Reactie> reacties;
+    private int postID;
+    private String titel;
+    private String inhoud;
+    private Image afbeelding;
+    private String datum;
+    private double noorderbreedte;
+    private double oosterlengte;
+    private String straat;
+    private String gemeente;
+    private String plaats;
+    private String land;
+    private Gebruiker gebruiker;
+    private ArrayList<Gebruiker> likes;
+    private ArrayList<Reactie> reacties;
+    private int soort; 
 
-    public Post(int PostID, 
-            String titel, 
-            String inhoud, 
-            Image afbeelding, 
-            String datum, 
-            double noorderbreedte, 
-            double oosterlengte, 
-            String straat, 
-            String gemeente, 
-            String plaats, 
-            String land, 
-            Gebruiker gebruiker, 
-            ArrayList<Gebruiker> likes, 
+    public int getSoort() {
+        return soort;
+    }
+
+    public void setSoort(int soort) {
+        this.soort = soort;
+    }
+
+    public String getBeginDatum() {
+        return beginDatum;
+    }
+
+    public void setBeginDatum(String beginDatum) {
+        this.beginDatum = beginDatum;
+    }
+
+    public String getEindDatum() {
+        return eindDatum;
+    }
+
+    public void setEindDatum(String eindDatum) {
+        this.eindDatum = eindDatum;
+    }
+    private String beginDatum;
+    private String eindDatum;
+    public Post(int PostID,
+            String titel,
+            String inhoud,
+            Image afbeelding,
+            String datum,
+            double noorderbreedte,
+            double oosterlengte,
+            String straat,
+            String gemeente,
+            String plaats,
+            String land,
+            Gebruiker gebruiker,
+            ArrayList<Gebruiker> likes,
             ArrayList<Reactie> reacties) {
         this.postID = PostID;
         this.titel = titel;
@@ -49,18 +75,18 @@ private ArrayList<Reactie> reacties;
         this.reacties = reacties;
     }
 
-    public Post(int PostID, 
-            String titel, 
-            String inhoud, 
-            String datum, 
-            double noorderbreedte, 
-            double oosterlengte, 
-            String straat, 
-            String gemeente, 
-            String plaats, 
-            String land, 
-            Gebruiker gebruiker, 
-            ArrayList<Gebruiker> likes, 
+    public Post(int PostID,
+            String titel,
+            String inhoud,
+            String datum,
+            double noorderbreedte,
+            double oosterlengte,
+            String straat,
+            String gemeente,
+            String plaats,
+            String land,
+            Gebruiker gebruiker,
+            ArrayList<Gebruiker> likes,
             ArrayList<Reactie> reacties) {
         this.postID = PostID;
         this.titel = titel;
@@ -190,5 +216,4 @@ private ArrayList<Reactie> reacties;
     public void setReacties(ArrayList<Reactie> reacties) {
         this.reacties = reacties;
     }
-    
 }
