@@ -27,6 +27,7 @@ public class ApplicationConfig extends Application {
         resources.add(res.SituatieServices.class);        
         resources.add(res.GebruikerServices.class);
         resources.add(res.EvenementServices.class);
+        resources.add(res.ZoekService.class);
         try {
             Class<?> jacksonProvider = Class.forName("org.codehaus.jackson.jaxrs.JacksonJsonProvider");
             resources.add(jacksonProvider);

@@ -20,6 +20,15 @@ public class Post {
     private ArrayList<Gebruiker> likes;
     private ArrayList<Reactie> reacties;
     private int soort; 
+    private int goedGekeurd;
+
+    public int getGoedGekeurd() {
+        return goedGekeurd;
+    }
+
+    public void setGoedGekeurd(int goedGekeurd) {
+        this.goedGekeurd = goedGekeurd;
+    }
 
     public int getSoort() {
         return soort;
