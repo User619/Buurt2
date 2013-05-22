@@ -24,7 +24,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
-import org.jboss.logging.Param;
 
 /**
  *
@@ -44,7 +43,7 @@ public class SituatieServices {
                 + "Datum, Type, Soort, Titel, Inhoud, "
                 + "Straat, Gemeente, Plaats, Land, "
                 + "Oosterlengte,  Noorderbreedte, GebruikerID ) "
-                + "values (?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "values (now(),?,?,?,?,?,?,?,?,?,?,?)";
 //Insert into PostHistoriek (PostID, Titel, Inhoud, Afbeelding, Oosterlengte, Noorderbreedte,
 //Soort, `Type`, BeginDatum, EindDatum, Bewerking, DatumBewerking, BewerkingGebruikerID)
 //values ((Select PostID From Post Order By PostID Desc Limit 1), "?", "?", "?", "?", "?", "?", "?", "?", "?", "Aanmaken", now(), "?");""
@@ -52,19 +51,19 @@ public class SituatieServices {
         try (Connection conn = source.getConnection()) {
             try (PreparedStatement stat = conn.prepareStatement(meldPost)) {
                 
-                stat.setString(1, situatie.getDatum());
-                stat.setInt(2, 0);//type 0=situatie 1=evemenement
-                stat.setInt(3, situatie.getSoort());
-                stat.setString(4, situatie.getTitel());
-                stat.setString(5, situatie.getInhoud());
                 
-                stat.setString(6, situatie.getStraat());
-                stat.setString(7, situatie.getGemeente());
-                stat.setString(8, situatie.getPlaats());
-                stat.setString(9, situatie.getLand());
-                stat.setDouble(10, situatie.getOosterlengte());
-                stat.setDouble(11, situatie.getNoorderbreedte());
-                stat.setInt(12, situatie.getGebruiker().getGebruikerID());  
+                stat.setInt(1, 0);//type 0=situatie 1=evemenement
+                stat.setInt(2, situatie.getSoort());
+                stat.setString(3, situatie.getTitel());
+                stat.setString(4, situatie.getInhoud());
+                
+                stat.setString(5, situatie.getStraat());
+                stat.setString(6, situatie.getGemeente());
+                stat.setString(7, situatie.getPlaats());
+                stat.setString(8, situatie.getLand());
+                stat.setDouble(9, situatie.getOosterlengte());
+                stat.setDouble(10, situatie.getNoorderbreedte());
+                stat.setInt(11, situatie.getGebruiker().getGebruikerID());  
                 
                 stat.executeUpdate();
 

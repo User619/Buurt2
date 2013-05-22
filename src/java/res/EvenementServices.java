@@ -43,30 +43,30 @@ public class EvenementServices {
                 + "Straat, Gemeente, Plaats, Land, "
                 + "Oosterlengte,  Noorderbreedte, GebruikerID, "
                  +"BeginDatum, EindDatum ) "
-                + "values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                + "values (now(),?,?,?,?,?,?,?,?,?,?,?,?)";
         try (Connection conn = source.getConnection()) {
             try (PreparedStatement stat = conn.prepareStatement(meldPost)) {
                 
-                stat.setString(1, evenement.getDatum());
-                stat.setInt(2, 1);//type 0=situatie 1=evemenement
-                stat.setString(3, evenement.getTitel());
-                stat.setString(4, evenement.getInhoud());
-                stat.setString(5, evenement.getStraat());
+                 
+                stat.setInt(1, 1);//type 0=situatie 1=evemenement
+                stat.setString(2, evenement.getTitel());
+                stat.setString(3, evenement.getInhoud());
+                stat.setString(4, evenement.getStraat());
                 
-                stat.setString(6, evenement.getGemeente());
-                stat.setString(7, evenement.getPlaats());
-                stat.setString(8, evenement.getLand());
-                stat.setDouble(9, evenement.getOosterlengte());
-                stat.setDouble(10, evenement.getNoorderbreedte());
-                stat.setDouble(11,evenement.getGebruiker().getGebruikerID());
+                stat.setString(5, evenement.getGemeente());
+                stat.setString(6, evenement.getPlaats());
+                stat.setString(7, evenement.getLand());
+                stat.setDouble(8, evenement.getOosterlengte());
+                stat.setDouble(9, evenement.getNoorderbreedte());
+                stat.setDouble(10,evenement.getGebruiker().getGebruikerID());
                 try {
                     Date date = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(evenement.getBeginDatum());
                     String formattedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
                     Date date2 = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(evenement.getEindDatum());
                     String formattedDate2 = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(date);
                     
-                    stat.setString(12, formattedDate);
-                    stat.setString(13, formattedDate2);
+                    stat.setString(11, formattedDate);
+                    stat.setString(12, formattedDate2);
                 } catch (ParseException ex) {
                     Logger.getLogger(EvenementServices.class.getName()).log(Level.SEVERE, null, ex);
                 }

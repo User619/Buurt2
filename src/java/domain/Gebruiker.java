@@ -1,37 +1,96 @@
 package domain;
 
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class Gebruiker {
- 
-private int gebruikerID;
-private String gebruikersnaam;
-private double noorderbreedte;
-private double oosterlengte;
-private int zoom;
-private ArrayList<Post> posts;
-private ArrayList<Post> recentePosts;
-private String facebookID;
-private String twitterID;
-private String moderator;
 
-public Gebruiker(int gebruikerID, String gebruikersnaam,String facebookID, String twitterKey, String moderator)
-{
+    private int gebruikerID;
+    private String gebruikersnaam;
+    private String naam;
+    private String voornaam;
+    private String email;
+    private String wachtwoord;
+    private String facebookID;
+    private String twitterID;
+    private double noorderbreedte;
+    private double oosterlengte;
+    private int beheerder;
+    private List<Post> mijnPosts;
+    private List<Post> recentePosts;
+    private Filters filters;
+
+    public Gebruiker(int gebruikerID, String gebruikersnaam, String naam, String voornaam, String email, String wachtwoord, String facebookID, String twitterID, double noorderbreedte, double oosterlengte, int beheerder, ArrayList<Post> mijnPosts, ArrayList<Post> recentePosts) {
         this.gebruikerID = gebruikerID;
         this.gebruikersnaam = gebruikersnaam;
-        this.noorderbreedte = 0;
-        this.oosterlengte = 0;
-        this.zoom = 0;
+        this.naam = naam;
+        this.voornaam = voornaam;
+        this.email = email;
+        this.wachtwoord = wachtwoord;
         this.facebookID = facebookID;
-        this.twitterID = twitterKey;
-        this.moderator = moderator;
-        posts = new ArrayList<Post>();
-        recentePosts = new ArrayList<Post>();
+        this.twitterID = twitterID;
+        this.noorderbreedte = noorderbreedte;
+        this.oosterlengte = oosterlengte;
+        this.beheerder = beheerder;
+        this.mijnPosts = mijnPosts;
+        this.recentePosts = recentePosts;
     }
+
+    
 
     public Gebruiker() {
     }
+
+    public Filters getFilters() {
+        return filters;
+    }
+
+    public void setFilters(Filters filters) {
+        this.filters = filters;
+    }
+
+    public int getBeheerder() {
+        return beheerder;
+    }
+
+    public void setBeheerder(int beheerder) {
+        this.beheerder = beheerder;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+   
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public void setNaam(String naam) {
+        this.naam = naam;
+    }
+
+    public String getVoornaam() {
+        return voornaam;
+    }
+
+    public void setVoornaam(String voornaam) {
+        this.voornaam = voornaam;
+    }
+
+    public String getWachtwoord() {
+        return wachtwoord;
+    }
+
+    public void setWachtwoord(String wachtwoord) {
+        this.wachtwoord = wachtwoord;
+    }
+
 
     public int getGebruikerID() {
         return gebruikerID;
@@ -65,27 +124,21 @@ public Gebruiker(int gebruikerID, String gebruikersnaam,String facebookID, Strin
         this.oosterlengte = oosterlengte;
     }
 
-    public int getZoom() {
-        return zoom;
+    
+
+    public List<Post> getMijnPosts() {
+        return mijnPosts;
     }
 
-    public void setZoom(int zoom) {
-        this.zoom = zoom;
+    public void setMijnPosts(List<Post> mijnPosts) {
+        this.mijnPosts = mijnPosts;
     }
 
-    public ArrayList<Post> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(ArrayList<Post> posts) {
-        this.posts = posts;
-    }
-
-    public ArrayList<Post> getRecentePosts() {
+    public List<Post> getRecentePosts() {
         return recentePosts;
     }
 
-    public void setRecentePosts(ArrayList<Post> recentePosts) {
+    public void setRecentePosts(List<Post> recentePosts) {
         this.recentePosts = recentePosts;
     }
 
@@ -104,14 +157,5 @@ public Gebruiker(int gebruikerID, String gebruikersnaam,String facebookID, Strin
     public void setTwitterID(String twitterID) {
         this.twitterID = twitterID;
     }
-
-    public String getModerator() {
-        return moderator;
-    }
-
-    public void setModerator(String moderator) {
-        this.moderator = moderator;
-    }
-    
 
 }
